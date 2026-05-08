@@ -85,5 +85,5 @@ iris-mlops-demo/
 
 ## Public artifacts
 
-- **Source code:** github.com/yourusername/iris-mlops-demo
+- **Source code:** github.com/merlest/iris-mlops-demo
 - **Docker image:** hub.docker.com/r/merlest/iris-mlops
