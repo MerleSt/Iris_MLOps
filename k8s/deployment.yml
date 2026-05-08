@@ -1,0 +1,28 @@
+#Deployment "iris-deployment"
+#├── manage 1 copy of any pod with label app=iris
+#└── pod template:
+#    └── one container:
+#        ├── named "iris-container"
+#        ├── using image merlest/iris-mlops:v1
+#        └── listening on port 8000
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iris-deployment
+  labels:
+    app: iriskubectl explain deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iris
+  template:
+    metadata:
+      labels:
+        app: iris
+    spec:
+      containers:
+      - name: iris-container
+        image: merlest/iris-mlops:v1
+        ports:
+        - containerPort: 8000
