@@ -10,7 +10,7 @@ kind: Deployment
 metadata:
   name: iris-deployment
   labels:
-    app: iriskubectl explain deployment
+    app: iriskubectl #explain deployment
 spec:
   replicas: 1
   selector:
