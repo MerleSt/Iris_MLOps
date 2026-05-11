@@ -4,12 +4,17 @@
 
 set -e  # exit immediately if any command fails
 
-echo "==> Checking kind cluster..."
-if kind get clusters | grep -q "iris-cluster"; then
-    echo "    Cluster 'iris-cluster' already exists."
+# Step 1: does the cluster exist AND is it reachable?
+if kind get clusters | grep -q "^${CLUSTER_NAME}$" && kubectl cluster-info --context "kind-${CLUSTER_NAME}" > /dev/null 2>&1; then
+    echo "    Cluster '${CLUSTER_NAME}' exists and is reachable."
 else
-    echo "    Cluster not found. Creating it now..."
-    kind create cluster --name iris-cluster
+    # If it exists but is unreachable, delete it first
+    if kind get clusters | grep -q "^${CLUSTER_NAME}$"; then
+        echo "    Cluster '${CLUSTER_NAME}' exists but is unreachable. Deleting it..."
+        kind delete cluster --name "${CLUSTER_NAME}"
+    fi
+    echo "    Creating cluster '${CLUSTER_NAME}'..."
+    kind create cluster --name "${CLUSTER_NAME}"
 fi
 
 echo "==> Verifying cluster is reachable..."
