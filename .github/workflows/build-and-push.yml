@@ -11,6 +11,9 @@ on:
       - '.dockerignore'
       - '.github/workflows/build-and-push.yml'
 
+permissions:
+  contents: write
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -34,3 +37,12 @@ jobs:
           tags: |
             merlest/iris-mlops:latest
             merlest/iris-mlops:${{ github.sha }}
+      
+      - name: Update deployment manifest with new image tag
+        run: |
+          sed -i "s|image: merlest/iris-mlops:.*|image: merlest/iris-mlops:${{ github.sha }}|" k8s/deployment.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add k8s/deployment.yml
+          git commit -m "chore: update image to ${{ github.sha }}"
+          git push
