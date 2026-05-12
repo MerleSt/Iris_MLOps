@@ -4,6 +4,8 @@
 
 set -e  # exit immediately if any command fails
 
+CLUSTER_NAME="iris-cluster"
+
 # Step 1: does the cluster exist AND is it reachable?
 if kind get clusters | grep -q "^${CLUSTER_NAME}$" && kubectl cluster-info --context "kind-${CLUSTER_NAME}" > /dev/null 2>&1; then
     echo "    Cluster '${CLUSTER_NAME}' exists and is reachable."
