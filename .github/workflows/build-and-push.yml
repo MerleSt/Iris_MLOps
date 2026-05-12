@@ -3,6 +3,13 @@ name: Build and push Docker image
 on:
   push:
     branches: [main]
+    paths:
+      - 'app/**'
+      - 'train.py'
+      - 'requirements.txt'
+      - 'Dockerfile'
+      - '.dockerignore'
+      - '.github/workflows/build-and-push.yml'
 
 jobs:
   build-and-push:
