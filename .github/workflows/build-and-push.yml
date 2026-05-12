@@ -40,9 +40,16 @@ jobs:
       
       - name: Update deployment manifest with new image tag
         run: |
+          # sed edits the deployment YAML file in place
+          # -i means edit in place
+          # s|FIND|REPLACE| is the substitution pattern (using | as separator since strings contain /)
           sed -i "s|image: merlest/iris-mlops:.*|image: merlest/iris-mlops:${{ github.sha }}|" k8s/deployment.yml
+          
+          # Configure git identity for the bot commit
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Stage, commit, and push the updated manifest
           git add k8s/deployment.yml
           git commit -m "chore: update image to ${{ github.sha }}"
           git push
