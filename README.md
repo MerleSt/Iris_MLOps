@@ -133,4 +133,4 @@ The image is publicly available at `hub.docker.com/r/merlest/iris-mlops`.
 ## Public artifacts
 
 - **Source code:** this repository
-- **Docker image:** [hub.docker.com/r/merlest/iris-mlops](https://hub.docker.com/r/merlest/iris-mlops)
+- **Docker image:** [hub.docker.com/r/merlest/iris-mlops](https://hub.docker.com/r/merlest/iris-mlops)Test edit
