@@ -22,6 +22,21 @@ fi
 echo "==> Verifying cluster is reachable..."
 kubectl get nodes
 
+echo "==> Setting up ArgoCD..."
+
+# Create the argocd namespace if it doesn't exist
+if ! kubectl get namespace argocd > /dev/null 2>&1; then
+    echo "    Creating 'argocd' namespace..."
+    kubectl create namespace argocd
+fi
+
+# Install or update ArgoCD
+echo "    Installing/updating ArgoCD (this can take a minute)..."
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml --server-side --force-conflicts
+
+echo "    Waiting for ArgoCD pods to be ready..."
+kubectl wait --for=condition=available --timeout=300s -n argocd deployment --all
+
 echo "==> Applying Kubernetes manifests..."
 kubectl apply -f k8s/
 
