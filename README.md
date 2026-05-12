@@ -57,6 +57,7 @@ docker rm iris-service
 
 **Push the image to Docker Hub:**
 ```bash
+
 docker tag iris-mlops:v1 merlest/iris-mlops:v1
 docker push merlest/iris-mlops:v1
 ```
