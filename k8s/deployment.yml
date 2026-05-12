@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: iris-container
-        image: merlest/iris-mlops:v1
+        image: merlest/iris-mlops:latest
         ports:
         - containerPort: 8000
         readinessProbe:
