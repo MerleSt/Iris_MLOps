@@ -34,6 +34,12 @@ fi
 echo "    Installing/updating ArgoCD (this can take a minute)..."
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml --server-side --force-conflicts
 
+# Configure ArgoCD server to serve plain HTTP so Codespaces' HTTP port forwarding works.
+# Without this, login POSTs fail with 502 because Codespaces proxies HTTP but ArgoCD serves HTTPS.
+echo "    Configuring ArgoCD server for insecure (HTTP) mode..."
+kubectl -n argocd patch configmap argocd-cmd-params-cm --type merge -p '{"data":{"server.insecure":"true"}}'
+kubectl -n argocd rollout restart deployment argocd-server
+
 echo "    Waiting for ArgoCD pods to be ready..."
 kubectl wait --for=condition=available --timeout=300s -n argocd deployment --all
 
