@@ -57,3 +57,4 @@ echo "==> Then visit the forwarded URL with /docs appended."
 echo "==> Don't forget to: docker login -u merlest"
 
 #kubectl port-forward -n argocd svc/argocd-server 8080:80
+# echo "ArgoCD admin password: $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d)" 
