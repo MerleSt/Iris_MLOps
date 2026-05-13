@@ -55,3 +55,5 @@ echo "==> To reach the service in the browser, run:"
 echo "    kubectl port-forward service/iris-service 8000:80"
 echo "==> Then visit the forwarded URL with /docs appended."
 echo "==> Don't forget to: docker login -u merlest"
+
+#kubectl port-forward -n argocd svc/argocd-server 8080:80
